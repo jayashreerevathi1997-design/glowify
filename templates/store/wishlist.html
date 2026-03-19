@@ -1,0 +1,179 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}My Wishlist – Glowify{% endblock %}
+
+{% block content %}
+
+<!-- Page Header -->
+<section class="page-header">
+    <div class="container">
+        <nav aria-label="breadcrumb" class="mb-3">
+            <ol class="breadcrumb justify-content-center">
+                <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+                <li class="breadcrumb-item active">My Wishlist</li>
+            </ol>
+        </nav>
+        <h1 class="page-header-title">My Wishlist</h1>
+        <p class="page-header-subtitle">
+            {% if wishlist_items %}
+                {{ wishlist.item_count }} item{{ wishlist.item_count|pluralize }} saved for later
+            {% else %}
+                Save your favourite products for later
+            {% endif %}
+        </p>
+    </div>
+</section>
+
+<section class="wishlist-section">
+    <div class="container">
+        {% if wishlist_items %}
+        <!-- Wishlist Header -->
+        <div class="d-flex justify-content-between align-items-center mb-4 pb-3" style="border-bottom: 2px solid var(--border-light);">
+            <h5 style="font-weight: 600; color: var(--text-dark); margin: 0;">
+                <i class="bi bi-heart-fill me-2" style="color:var(--primary)"></i>
+                Saved Items ({{ wishlist.item_count }})
+            </h5>
+            <a href="{% url 'shop' %}" style="font-size: 0.85rem; color: var(--primary); text-decoration: none; font-weight: 500;">
+                <i class="bi bi-plus-circle me-1"></i> Continue Shopping
+            </a>
+        </div>
+
+        <div class="row g-4">
+            {% for item in wishlist_items %}
+            <div class="col-lg-3 col-md-4 col-sm-6" id="wishlist-item-{{ item.product.id }}">
+                <div class="product-card h-100">
+                    <!-- Product Image -->
+                    <div class="product-img-wrapper">
+                        {% if item.product.badge %}
+                        <span class="product-badge {{ item.product.badge_class }}">{{ item.product.badge }}</span>
+                        {% endif %}
+
+                        <!-- Remove from Wishlist -->
+                        <button class="wishlist-btn active"
+                                data-toggle-wishlist="{{ item.product.id }}"
+                                title="Remove from Wishlist"
+                                id="wbtn-{{ item.product.id }}">
+                            <i class="bi bi-heart-fill"></i>
+                        </button>
+
+                        <a href="{% url 'product_detail' item.product.slug %}">
+                            <img src="{% if item.product.image_url %}{{ item.product.image_url }}{% else %}https://picsum.photos/seed/{{ item.product.slug }}/400/400{% endif %}"
+                                 alt="{{ item.product.name }}" loading="lazy">
+                        </a>
+                    </div>
+
+                    <div class="product-body">
+                        {% if item.product.category %}
+                        <div class="product-category-tag">{{ item.product.category.name }}</div>
+                        {% endif %}
+
+                        <h5 class="product-name">
+                            <a href="{% url 'product_detail' item.product.slug %}">{{ item.product.name }}</a>
+                        </h5>
+
+                        <div class="product-rating">
+                            <div class="stars">
+                                {% for i in "12345" %}
+                                    {% if forloop.counter <= item.product.rating %}⭐{% else %}☆{% endif %}
+                                {% endfor %}
+                            </div>
+                            <span class="rating-number">{{ item.product.rating }}</span>
+                            <span class="rating-count">({{ item.product.review_count }})</span>
+                        </div>
+
+                        <div class="product-footer">
+                            <div class="product-price">
+                                <span class="currency">₹</span>{{ item.product.price|floatformat:0 }}
+                            </div>
+                            <button class="btn-add-cart" data-add-to-cart="{{ item.product.id }}" data-qty="1">
+                                <i class="bi bi-bag-plus"></i> Add
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- Move All to Cart CTA -->
+        <div class="text-center mt-5 py-4" style="background: var(--bg-cream); border-radius: var(--radius-lg); border: 1px dashed var(--border-light);">
+            <p style="color: var(--text-medium); margin-bottom: 16px; font-size: 0.95rem;">
+                <i class="bi bi-bag-heart me-2" style="color:var(--primary)"></i>
+                Love everything? Add all items to your cart at once!
+            </p>
+            <div class="d-flex justify-content-center gap-3 flex-wrap">
+                <a href="{% url 'shop' %}" class="btn-outline-pink">
+                    <i class="bi bi-grid me-1"></i> Explore More
+                </a>
+                <a href="{% url 'cart' %}" class="btn-primary-pink">
+                    <i class="bi bi-bag-check me-1"></i> View Cart
+                </a>
+            </div>
+        </div>
+
+        {% else %}
+        <!-- Empty Wishlist -->
+        <div class="empty-state" style="max-width: 480px; margin: 0 auto;">
+            <div class="empty-state-icon">🤍</div>
+            <h3 class="empty-state-title">Your Wishlist is Empty</h3>
+            <p class="empty-state-text">
+                Start adding products you love by clicking the
+                <i class="bi bi-heart" style="color:var(--primary);"></i> heart icon
+                on any product. Save your favourites for later!
+            </p>
+            <a href="{% url 'shop' %}" class="btn-primary-pink" style="margin-top: 8px;">
+                <i class="bi bi-bag-heart"></i> Discover Products
+            </a>
+        </div>
+        {% endif %}
+    </div>
+</section>
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// Override wishlist toggle to also remove item from DOM on this page
+document.addEventListener('click', function(e) {
+    const btn = e.target.closest('[data-toggle-wishlist]');
+    if (!btn) return;
+
+    // Check if we're on the wishlist page
+    const isWishlistPage = window.location.pathname.includes('/wishlist/');
+
+    if (isWishlistPage) {
+        e.preventDefault();
+        const productId = btn.dataset.toggleWishlist;
+        const url = `/wishlist/toggle/${productId}/`;
+
+        fetch(url, {
+            method: 'POST',
+            headers: { 'X-CSRFToken': getCSRFToken() },
+        })
+        .then(r => r.json())
+        .then(data => {
+            if (data.success && !data.in_wishlist) {
+                // Remove from DOM with animation
+                const card = document.getElementById(`wishlist-item-${productId}`);
+                if (card) {
+                    card.style.transition = 'opacity 0.4s, transform 0.4s';
+                    card.style.opacity = '0';
+                    card.style.transform = 'scale(0.9)';
+                    setTimeout(() => {
+                        card.remove();
+                        showToast(data.message, 'success');
+                        // If no more items, reload to show empty state
+                        const remaining = document.querySelectorAll('[id^="wishlist-item-"]');
+                        if (remaining.length === 0) {
+                            setTimeout(() => location.reload(), 500);
+                        }
+                    }, 400);
+                }
+            }
+        })
+        .catch(() => showToast('Network error.', 'error'));
+    }
+});
+</script>
+{% endblock %}

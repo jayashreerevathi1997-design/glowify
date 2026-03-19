@@ -1,0 +1,203 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Shop – Glowify{% endblock %}
+
+{% block content %}
+
+<!-- Page Header -->
+<section class="page-header">
+    <div class="container">
+        <nav aria-label="breadcrumb" class="mb-3">
+            <ol class="breadcrumb justify-content-center">
+                <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+                <li class="breadcrumb-item active">Shop</li>
+            </ol>
+        </nav>
+        <h1 class="page-header-title">
+            {% if selected_category %}
+                {{ selected_category.name }}
+            {% else %}
+                Our Collection
+            {% endif %}
+        </h1>
+        <p class="page-header-subtitle">
+            {% if selected_category %}
+                {{ selected_category.description }}
+            {% else %}
+                Discover beauty products crafted with science-backed ingredients
+            {% endif %}
+        </p>
+    </div>
+</section>
+
+<!-- Filter Bar -->
+<div class="shop-filter-bar">
+    <div class="container">
+        <div class="d-flex align-items-center justify-content-between flex-wrap gap-3">
+            <!-- Category Pills -->
+            <div class="category-filter-pills">
+                <a href="{% url 'shop' %}" class="category-pill {% if not selected_category %}active{% endif %}">
+                    All Products
+                </a>
+                {% for cat in categories %}
+                <a href="{% url 'shop' %}?category={{ cat.slug }}{% if sort_by != 'default' %}&sort={{ sort_by }}{% endif %}"
+                   class="category-pill {% if selected_category.slug == cat.slug %}active{% endif %}">
+                    {{ cat.name }}
+                </a>
+                {% endfor %}
+            </div>
+
+            <!-- Sort Dropdown -->
+            <div class="d-flex align-items-center gap-2">
+                <label style="font-size:0.82rem; color:var(--text-light); white-space:nowrap;" for="sortSelect">
+                    <i class="bi bi-sort-down"></i> Sort by:
+                </label>
+                <select class="filter-select" id="sortSelect" onchange="applySort(this.value)">
+                    <option value="default" {% if sort_by == 'default' %}selected{% endif %}>Featured</option>
+                    <option value="price_asc" {% if sort_by == 'price_asc' %}selected{% endif %}>Price: Low to High</option>
+                    <option value="price_desc" {% if sort_by == 'price_desc' %}selected{% endif %}>Price: High to Low</option>
+                    <option value="rating" {% if sort_by == 'rating' %}selected{% endif %}>Highest Rated</option>
+                    <option value="newest" {% if sort_by == 'newest' %}selected{% endif %}>Newest First</option>
+                </select>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Products Grid -->
+<section style="padding: 50px 0; background: var(--bg-light); min-height: 60vh;">
+    <div class="container">
+        <!-- Results count -->
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <p style="color: var(--text-light); font-size: 0.88rem; margin: 0;">
+                <i class="bi bi-grid me-1"></i>
+                Showing <strong>{{ products|length }}</strong> product{{ products|length|pluralize }}
+                {% if selected_category %} in <strong>{{ selected_category.name }}</strong>{% endif %}
+            </p>
+            <div class="d-flex gap-2">
+                <button class="btn btn-sm" style="border: 1px solid var(--border-light); border-radius: 8px; padding: 5px 12px;" id="gridViewBtn" onclick="setView('grid')" title="Grid View">
+                    <i class="bi bi-grid-3x3-gap"></i>
+                </button>
+                <button class="btn btn-sm" style="border: 1px solid var(--border-light); border-radius: 8px; padding: 5px 12px;" id="listViewBtn" onclick="setView('list')" title="List View">
+                    <i class="bi bi-list-ul"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Product Cards -->
+        <div class="row g-4" id="productsGrid">
+            {% for product in products %}
+            <div class="col-lg-3 col-md-4 col-sm-6 product-col fade-in">
+                <div class="product-card h-100">
+                    <!-- Product Image -->
+                    <div class="product-img-wrapper">
+                        {% if product.badge %}
+                        <span class="product-badge {{ product.badge_class }}">{{ product.badge }}</span>
+                        {% endif %}
+
+                        <button class="wishlist-btn {% if product.id in wishlist_product_ids %}active{% endif %}"
+                                data-toggle-wishlist="{{ product.id }}"
+                                title="Add to Wishlist">
+                            <i class="bi bi-heart{% if product.id in wishlist_product_ids %}-fill{% endif %}"></i>
+                        </button>
+
+                        <a href="{% url 'product_detail' product.slug %}">
+                            <img src="{% if product.image_url %}{{ product.image_url }}{% else %}https://picsum.photos/seed/{{ product.slug }}/400/400{% endif %}"
+                                 alt="{{ product.name }}" loading="lazy">
+                        </a>
+                    </div>
+
+                    <div class="product-body">
+                        {% if product.category %}
+                        <div class="product-category-tag">{{ product.category.name }}</div>
+                        {% endif %}
+
+                        <h5 class="product-name">
+                            <a href="{% url 'product_detail' product.slug %}">{{ product.name }}</a>
+                        </h5>
+
+                        <div class="product-rating">
+                            <div class="stars">
+                                {% with stars=product.rating|floatformat:0 %}
+                                    {% for i in "12345" %}
+                                        {% if forloop.counter <= product.rating %}⭐{% else %}☆{% endif %}
+                                    {% endfor %}
+                                {% endwith %}
+                            </div>
+                            <span class="rating-number">{{ product.rating }}</span>
+                            <span class="rating-count">({{ product.review_count }})</span>
+                        </div>
+
+                        <div class="product-footer">
+                            <div class="product-price">
+                                <span class="currency">₹</span>{{ product.price|floatformat:0 }}
+                            </div>
+                            <button class="btn-add-cart" data-add-to-cart="{{ product.id }}" data-qty="1">
+                                <i class="bi bi-bag-plus"></i> Add
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-12">
+                <div class="empty-state">
+                    <div class="empty-state-icon">🔍</div>
+                    <h4 class="empty-state-title">No Products Found</h4>
+                    <p class="empty-state-text">Try a different category or clear your filters.</p>
+                    <a href="{% url 'shop' %}" class="btn-primary-pink mt-2">
+                        <i class="bi bi-arrow-left"></i> View All Products
+                    </a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+function applySort(value) {
+    const url = new URL(window.location.href);
+    url.searchParams.set('sort', value);
+    window.location.href = url.toString();
+}
+
+function setView(type) {
+    const grid = document.getElementById('productsGrid');
+    const cols = grid.querySelectorAll('.product-col');
+    if (type === 'list') {
+        cols.forEach(col => {
+            col.className = 'col-12 product-col fade-in';
+            const card = col.querySelector('.product-card');
+            if (card) {
+                card.style.flexDirection = 'row';
+                const imgWrap = card.querySelector('.product-img-wrapper');
+                if (imgWrap) imgWrap.style.width = '200px';
+                const imgWrap2 = card.querySelector('.product-img-wrapper');
+                if (imgWrap2) { imgWrap2.style.flexShrink = '0'; imgWrap2.style.height = '180px'; }
+            }
+        });
+        document.getElementById('listViewBtn').style.background = 'var(--pink-pale)';
+        document.getElementById('gridViewBtn').style.background = 'transparent';
+    } else {
+        cols.forEach(col => {
+            col.className = 'col-lg-3 col-md-4 col-sm-6 product-col fade-in';
+            const card = col.querySelector('.product-card');
+            if (card) {
+                card.style.flexDirection = '';
+                const imgWrap = card.querySelector('.product-img-wrapper');
+                if (imgWrap) { imgWrap.style.width = ''; imgWrap.style.flexShrink = ''; imgWrap.style.height = ''; }
+            }
+        });
+        document.getElementById('gridViewBtn').style.background = 'var(--pink-pale)';
+        document.getElementById('listViewBtn').style.background = 'transparent';
+    }
+}
+// Set grid view active by default
+document.getElementById('gridViewBtn').style.background = 'var(--pink-pale)';
+</script>
+{% endblock %}

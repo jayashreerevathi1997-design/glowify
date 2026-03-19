@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Payment – Glowify{% endblock %}
+
+{% block content %}
+
+<section style="padding: 60px 0; background: #f9f9f9; min-height: 70vh;">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-6">
+                <div style="background:#fff; border-radius:14px; padding:36px; box-shadow:0 2px 12px rgba(0,0,0,0.07); text-align:center;">
+                    <div style="font-size:3rem; margin-bottom:16px;">🔒</div>
+                    <h3 style="font-weight:700; color:#222; margin-bottom:8px;">Secure Payment</h3>
+                    <p style="color:#888; font-size:0.9rem; margin-bottom:24px;">
+                        Order <strong>{{ order.order_id }}</strong> — Total: <strong style="color:#e91e8c;">₹{{ amount_display|floatformat:0 }}</strong>
+                    </p>
+
+                    <button id="payBtn" onclick="startPayment()"
+                            style="background:#e91e8c; color:white; border:none; border-radius:8px; padding:14px 50px; font-weight:700; font-size:1rem; cursor:pointer;">
+                        Pay ₹{{ amount_display|floatformat:0 }} Now
+                    </button>
+
+                    <div id="statusMsg" style="margin-top:16px; display:none;"></div>
+
+                    <p style="font-size:0.75rem; color:#aaa; margin-top:16px;">
+                        Powered by Razorpay (Test Mode)
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
+
+{% block extra_js %}
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script>
+function startPayment() {
+    var options = {
+        "key": "{{ razorpay_key_id }}",
+        "amount": {{ amount }},
+        "currency": "INR",
+        "name": "Glowify",
+        "description": "Order {{ order.order_id }}",
+        "order_id": "{{ razorpay_order_id }}",
+        "handler": function (response) {
+            // Payment successful - redirect with GET params
+            var url = "/payment/verify/?" +
+                "razorpay_order_id=" + encodeURIComponent(response.razorpay_order_id) +
+                "&razorpay_payment_id=" + encodeURIComponent(response.razorpay_payment_id) +
+                "&razorpay_signature=" + encodeURIComponent(response.razorpay_signature);
+
+            document.getElementById('statusMsg').style.display = 'block';
+            document.getElementById('statusMsg').innerHTML = '<p style="color:#38a169; font-weight:600;">Payment successful! Redirecting...</p>';
+
+            window.location.href = url;
+        },
+        "prefill": {
+            "name": "{{ order.first_name }} {{ order.last_name }}",
+            "contact": "{{ order.mobile }}"
+        },
+        "theme": {
+            "color": "#e91e8c"
+        },
+        "modal": {
+            "ondismiss": function() {
+                document.getElementById('statusMsg').style.display = 'block';
+                document.getElementById('statusMsg').innerHTML = '<p style="color:#e53e3e; font-weight:600;">Payment cancelled. Click the button to try again.</p>';
+            }
+        }
+    };
+    var rzp = new Razorpay(options);
+    rzp.on('payment.failed', function (response) {
+        document.getElementById('statusMsg').style.display = 'block';
+        document.getElementById('statusMsg').innerHTML = '<p style="color:#e53e3e; font-weight:600;">Payment failed: ' + response.error.description + '<br>Click the button to try again.</p>';
+    });
+    rzp.open();
+}
+
+// Auto-open Razorpay on page load
+window.onload = function() {
+    setTimeout(startPayment, 500);
+};
+</script>
+{% endblock %}

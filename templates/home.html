@@ -1,0 +1,809 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Glowify – Where Luxury Meets Skin Science{% endblock %}
+
+{% block content %}
+
+<!-- =========================================================
+     HERO CAROUSEL
+     ========================================================= -->
+<section class="hero-carousel-section">
+    <div id="heroCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="5000">
+
+        <!-- Indicators -->
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="0" class="active"></button>
+            <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="1"></button>
+            <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="2"></button>
+        </div>
+
+        <!-- Slides -->
+        <div class="carousel-inner">
+
+            <!-- Slide 1 -->
+            <div class="carousel-item active">
+                <div class="hero-slide hero-slide-1">
+                    <div class="container">
+                        <div class="row align-items-center">
+                            <div class="col-lg-6">
+                                <div class="hero-content">
+                                    <div class="hero-tag">✨ Limited Time Offer</div>
+                                    <h1 class="hero-title">
+                                        Skincare<br>
+                                        <span class="highlight">Essentials</span>
+                                    </h1>
+                                    <div class="hero-offer-badge">
+                                        🔥 Save up to <strong>40% OFF</strong> — Limited Time Only
+                                    </div>
+                                    <p class="hero-subtitle">
+                                        Discover your perfect skincare ritual with our expertly curated collection
+                                        of luxurious, science-backed formulas.
+                                    </p>
+                                    <div class="d-flex align-items-center flex-wrap gap-2">
+                                        <a href="{% url 'shop' %}" class="btn-hero-primary">
+                                            <i class="bi bi-bag-heart"></i> Shop Now
+                                        </a>
+                                        <a href="{% url 'about' %}" class="btn-hero-secondary">
+                                            Learn More
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 d-none d-lg-block">
+                                <div class="hero-product-image text-center position-relative py-5">
+                                    <img src="https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=450&h=450&fit=crop&crop=center"
+                                         alt="Skincare Products"
+                                         style="border-radius: 50%; width: 380px; height: 380px; object-fit: cover; box-shadow: 0 30px 80px rgba(0,0,0,0.35);">
+                                    <!-- Floating Rating Card -->
+                                    <div class="hero-floating-card card-rating">
+                                        <span style="font-size:1.5rem;">⭐</span>
+                                        <div>
+                                            <div style="font-weight:700;font-size:0.95rem;color:#2d1b35;">4.9 Rating</div>
+                                            <div style="font-size:0.75rem;color:#9e8da6;">10K+ Reviews</div>
+                                        </div>
+                                    </div>
+                                    <!-- Floating Offer Card -->
+                                    <div class="hero-floating-card card-offer">
+                                        <div style="font-size:0.75rem;color:#9e8da6;margin-bottom:2px;">Special Offer</div>
+                                        <div style="font-weight:800;font-size:1.1rem;color:#e91e8c;">40% OFF</div>
+                                        <div style="font-size:0.72rem;color:#9e8da6;">Today Only!</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 2 -->
+            <div class="carousel-item">
+                <div class="hero-slide hero-slide-2">
+                    <div class="container">
+                        <div class="row align-items-center">
+                            <div class="col-lg-6">
+                                <div class="hero-content">
+                                    <div class="hero-tag">🌿 New Arrivals</div>
+                                    <h1 class="hero-title">
+                                        Radiant<br>
+                                        <span class="highlight">Glow</span> Serums
+                                    </h1>
+                                    <div class="hero-offer-badge">
+                                        💎 Buy 2 Get 1 Free — This Week Only
+                                    </div>
+                                    <p class="hero-subtitle">
+                                        Transform your skin with our hyaluronic acid-powered serums.
+                                        Visible results in just 7 days.
+                                    </p>
+                                    <div class="d-flex align-items-center flex-wrap gap-2">
+                                        <a href="{% url 'shop' %}?category=serum" class="btn-hero-primary">
+                                            <i class="bi bi-stars"></i> Explore Serums
+                                        </a>
+                                        <a href="{% url 'offers' %}" class="btn-hero-secondary">
+                                            View Offers
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 d-none d-lg-block">
+                                <div class="hero-product-image text-center py-5">
+                                    <img src="https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=450&h=450&fit=crop&crop=center"
+                                         alt="Glow Serums"
+                                         style="border-radius: 50%; width: 380px; height: 380px; object-fit: cover; box-shadow: 0 30px 80px rgba(0,0,0,0.35);">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 3 -->
+            <div class="carousel-item">
+                <div class="hero-slide hero-slide-3">
+                    <div class="container">
+                        <div class="row align-items-center">
+                            <div class="col-lg-6">
+                                <div class="hero-content">
+                                    <div class="hero-tag">💄 Best Sellers</div>
+                                    <h1 class="hero-title">
+                                        Luxe<br>
+                                        <span class="highlight">Beauty</span> Collection
+                                    </h1>
+                                    <div class="hero-offer-badge">
+                                        🌸 Free Shipping on Orders Above ₹999
+                                    </div>
+                                    <p class="hero-subtitle">
+                                        Indulge in our award-winning beauty collection.
+                                        From bold lips to dewy skin — find your signature look.
+                                    </p>
+                                    <div class="d-flex align-items-center flex-wrap gap-2">
+                                        <a href="{% url 'shop' %}" class="btn-hero-primary">
+                                            <i class="bi bi-bag2"></i> Shop Collection
+                                        </a>
+                                        <a href="{% url 'shop' %}?category=lipstick" class="btn-hero-secondary">
+                                            Lip Shades
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 d-none d-lg-block">
+                                <div class="hero-product-image text-center py-5">
+                                    <img src="https://images.unsplash.com/photo-1487215078519-e21cc028cb29?w=450&h=450&fit=crop&crop=center"
+                                         alt="Beauty Collection"
+                                         style="border-radius: 50%; width: 380px; height: 380px; object-fit: cover; box-shadow: 0 30px 80px rgba(0,0,0,0.35);">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Controls -->
+        <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
+            <i class="bi bi-chevron-left fs-5"></i>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
+            <i class="bi bi-chevron-right fs-5"></i>
+        </button>
+    </div>
+</section>
+
+<!-- =========================================================
+     TRUST BADGES BAR
+     ========================================================= -->
+<section style="background: var(--white); padding: 20px 0; border-bottom: 1px solid var(--border-light);">
+    <div class="container">
+        <div class="row g-2 text-center">
+            <div class="col-6 col-md-3">
+                <div class="d-flex align-items-center justify-content-center gap-2">
+                    <i class="bi bi-truck" style="font-size:1.4rem;color:var(--primary)"></i>
+                    <div class="text-start">
+                        <div style="font-weight:600;font-size:0.82rem;color:var(--text-dark);">Free Shipping</div>
+                        <div style="font-size:0.72rem;color:var(--text-light);">On orders ₹999+</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="d-flex align-items-center justify-content-center gap-2">
+                    <i class="bi bi-shield-check" style="font-size:1.4rem;color:var(--primary)"></i>
+                    <div class="text-start">
+                        <div style="font-weight:600;font-size:0.82rem;color:var(--text-dark);">100% Authentic</div>
+                        <div style="font-size:0.72rem;color:var(--text-light);">Certified & Verified</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="d-flex align-items-center justify-content-center gap-2">
+                    <i class="bi bi-arrow-return-left" style="font-size:1.4rem;color:var(--primary)"></i>
+                    <div class="text-start">
+                        <div style="font-weight:600;font-size:0.82rem;color:var(--text-dark);">Easy Returns</div>
+                        <div style="font-size:0.72rem;color:var(--text-light);">30-day return policy</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="d-flex align-items-center justify-content-center gap-2">
+                    <i class="bi bi-headset" style="font-size:1.4rem;color:var(--primary)"></i>
+                    <div class="text-start">
+                        <div style="font-weight:600;font-size:0.82rem;color:var(--text-dark);">24/7 Support</div>
+                        <div style="font-size:0.72rem;color:var(--text-light);">Expert skincare help</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- =========================================================
+     ABOUT / BRAND SECTION - Where Luxury Meets Skin Science
+     ========================================================= -->
+<section class="about-section" id="about">
+    <div class="container">
+        <div class="row g-5 align-items-center">
+            <!-- Image Grid -->
+            <div class="col-lg-5">
+                <div class="about-image-grid">
+                    <div class="about-img-main">
+                        <div class="about-flip-inner">
+                            <div class="about-flip-front">
+                                <img src="https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=400&h=600&fit=crop&crop=center" alt="Luxury Skincare">
+                            </div>
+                            <div class="about-flip-back">
+                                <div class="flip-icon">💄</div>
+                                <div class="flip-title">Luxury Skincare</div>
+                                <div class="flip-text">Dermatologist-tested formulas crafted with premium ingredients for glowing, healthy skin.</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="about-img-top">
+                        <div class="about-flip-inner">
+                            <div class="about-flip-front">
+                                <img src="https://images.unsplash.com/photo-1556228720-da92f67f2e1e?w=300&h=200&fit=crop&crop=center" alt="Skincare Ingredients">
+                            </div>
+                            <div class="about-flip-back">
+                                <div class="flip-icon">🌿</div>
+                                <div class="flip-title">Natural Ingredients</div>
+                                <div class="flip-text">Pure, science-backed actives for radiant skin.</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="about-img-bottom">
+                        <div class="about-flip-inner">
+                            <div class="about-flip-front">
+                                <img src="https://images.unsplash.com/photo-1571781926291-c477ebfd024b?w=300&h=200&fit=crop&crop=center" alt="Glowify Products">
+                            </div>
+                            <div class="about-flip-back">
+                                <div class="flip-icon">✨</div>
+                                <div class="flip-title">Glowify Collection</div>
+                                <div class="flip-text">200+ products for every skin type and tone.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Content -->
+            <div class="col-lg-7">
+                <div class="about-badge">
+                    <i class="bi bi-gem"></i>
+                    Luxury Skincare
+                </div>
+                <h2 class="about-title">
+                    Where <span class="italic">Luxury</span><br>
+                    Meets Skin Science
+                </h2>
+                <p class="about-description">
+                    At Glowify, we believe that beautiful skin is the result of the perfect marriage between
+                    cutting-edge science and nature's finest ingredients. Our formulas are meticulously developed
+                    by dermatologists and cosmetic scientists to deliver transformative results you can see and feel.
+                </p>
+                <p class="about-description">
+                    Every product in our collection is cruelty-free, dermatologist-tested, and enriched with
+                    clinically proven actives. From powerful serums to nourishing lip colors — we craft beauty
+                    rituals that celebrate your unique radiance.
+                </p>
+
+                <!-- Stats -->
+                <div class="about-stats">
+                    <div class="about-stat">
+                        <span class="about-stat-number">50K+</span>
+                        <span class="about-stat-label">Happy Customers</span>
+                    </div>
+                    <div class="about-stat">
+                        <span class="about-stat-number">200+</span>
+                        <span class="about-stat-label">Products</span>
+                    </div>
+                    <div class="about-stat">
+                        <span class="about-stat-number">15+</span>
+                        <span class="about-stat-label">Expert Dermatologists</span>
+                    </div>
+                    <div class="about-stat">
+                        <span class="about-stat-number">4.9★</span>
+                        <span class="about-stat-label">Average Rating</span>
+                    </div>
+                </div>
+
+                <div class="d-flex flex-wrap gap-3">
+                    <a href="{% url 'shop' %}" class="btn-about">
+                        <i class="bi bi-bag2-heart"></i> Shop Now
+                    </a>
+                    <a href="{% url 'about' %}" class="btn-outline-pink">
+                        <i class="bi bi-info-circle"></i> Our Story
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- =========================================================
+     INGREDIENTS SECTION - Powered by Performance Ingredients
+     ========================================================= -->
+<section class="ingredients-section" id="ingredients">
+    <div class="container">
+        <div class="section-header">
+            <span class="section-tag">✦ Science-Backed</span>
+            <h2 class="section-title">Powered by <span class="pink">Performance Ingredients</span></h2>
+            <div class="section-divider"></div>
+            <p class="section-subtitle">
+                Our formulas harness the most effective skincare actives, carefully dosed for
+                maximum efficacy without irritation.
+            </p>
+        </div>
+
+        <div class="row g-4">
+            {% if ingredients %}
+                {% for ingredient in ingredients %}
+                <div class="col-lg-3 col-md-6">
+                    <div class="ingredient-card fade-in">
+                        <div class="ingredient-img-wrap">
+                            {% if forloop.counter == 1 %}
+                            <img src="https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=400&h=240&fit=crop&crop=center" alt="{{ ingredient.name }}">
+                            {% elif forloop.counter == 2 %}
+                            <img src="https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=400&h=240&fit=crop&crop=center" alt="{{ ingredient.name }}">
+                            {% elif forloop.counter == 3 %}
+                            <img src="https://images.unsplash.com/photo-1571781926291-c477ebfd024b?w=400&h=240&fit=crop&crop=center" alt="{{ ingredient.name }}">
+                            {% else %}
+                            <img src="https://images.unsplash.com/photo-1598662957563-ee4965d4d72c?w=400&h=240&fit=crop&crop=center" alt="{{ ingredient.name }}">
+                            {% endif %}
+                            <div class="ingredient-img-overlay"></div>
+                        </div>
+                        <div class="ingredient-body">
+                            <div class="ingredient-icon">
+                                {% if forloop.counter == 1 %}💧
+                                {% elif forloop.counter == 2 %}🌿
+                                {% elif forloop.counter == 3 %}✨
+                                {% else %}🌸{% endif %}
+                            </div>
+                            <h4 class="ingredient-name">{{ ingredient.name }}</h4>
+                            <span class="ingredient-benefit">{{ ingredient.benefit }}</span>
+                            <p class="ingredient-desc">{{ ingredient.description }}</p>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            {% else %}
+                <!-- Fallback static cards if no data -->
+                <div class="col-lg-3 col-md-6">
+                    <div class="ingredient-card">
+                        <div class="ingredient-img-wrap">
+                            <img src="https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=400&h=240&fit=crop&crop=center" alt="Hyaluronic Acid">
+                            <div class="ingredient-img-overlay"></div>
+                        </div>
+                        <div class="ingredient-body">
+                            <div class="ingredient-icon">💧</div>
+                            <h4 class="ingredient-name">Hyaluronic Acid</h4>
+                            <span class="ingredient-benefit">Deep Hydration</span>
+                            <p class="ingredient-desc">Provides deep, lasting hydration without heaviness, keeping skin plump and dewy all day.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="ingredient-card">
+                        <div class="ingredient-img-wrap">
+                            <img src="https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=400&h=240&fit=crop&crop=center" alt="Niacinamide">
+                            <div class="ingredient-img-overlay"></div>
+                        </div>
+                        <div class="ingredient-body">
+                            <div class="ingredient-icon">🌿</div>
+                            <h4 class="ingredient-name">Niacinamide</h4>
+                            <span class="ingredient-benefit">Pore Refinement</span>
+                            <p class="ingredient-desc">Refines pores and regulates excess oil production for a smooth, balanced complexion.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="ingredient-card">
+                        <div class="ingredient-img-wrap">
+                            <img src="https://images.unsplash.com/photo-1571781926291-c477ebfd024b?w=400&h=240&fit=crop&crop=center" alt="Retinol">
+                            <div class="ingredient-img-overlay"></div>
+                        </div>
+                        <div class="ingredient-body">
+                            <div class="ingredient-icon">✨</div>
+                            <h4 class="ingredient-name">Retinol</h4>
+                            <span class="ingredient-benefit">Anti-Aging</span>
+                            <p class="ingredient-desc">Reduces fine lines and improves skin texture through accelerated cell renewal.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="ingredient-card">
+                        <div class="ingredient-img-wrap">
+                            <img src="https://images.unsplash.com/photo-1598662957563-ee4965d4d72c?w=400&h=240&fit=crop&crop=center" alt="Vitamin C">
+                            <div class="ingredient-img-overlay"></div>
+                        </div>
+                        <div class="ingredient-body">
+                            <div class="ingredient-icon">🌸</div>
+                            <h4 class="ingredient-name">Vitamin C</h4>
+                            <span class="ingredient-benefit">Brightening</span>
+                            <p class="ingredient-desc">Brightens complexion and protects against free radical damage for a radiant glow.</p>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</section>
+
+<!-- =========================================================
+     FEATURED PRODUCTS SECTION
+     ========================================================= -->
+<section class="products-section" id="products">
+    <div class="container">
+        <div class="section-header">
+            <span class="section-tag">✦ Handpicked For You</span>
+            <h2 class="section-title">Featured <span class="pink">Products</span></h2>
+            <div class="section-divider"></div>
+            <p class="section-subtitle">
+                Our most-loved formulas, trusted by thousands of skin enthusiasts across India.
+            </p>
+        </div>
+
+        <div class="row g-4">
+            {% for product in featured_products %}
+            <div class="col-lg-4 col-md-6">
+                <div class="product-card fade-in">
+                    <!-- Product Image -->
+                    <div class="product-img-wrapper">
+                        {% if product.badge %}
+                        <span class="product-badge {{ product.badge_class }}">
+                            {{ product.badge }}
+                        </span>
+                        {% endif %}
+
+                        <!-- Wishlist Button -->
+                        <button class="wishlist-btn {% if product.id in wishlist_product_ids %}active{% endif %}"
+                                data-toggle-wishlist="{{ product.id }}"
+                                title="{% if product.id in wishlist_product_ids %}Remove from Wishlist{% else %}Add to Wishlist{% endif %}">
+                            <i class="bi bi-heart{% if product.id in wishlist_product_ids %}-fill{% endif %}"></i>
+                        </button>
+
+                        <a href="{% url 'product_detail' product.slug %}">
+                            <img src="{% if product.image_url %}{{ product.image_url }}{% else %}https://picsum.photos/seed/{{ product.slug }}/400/400{% endif %}"
+                                 alt="{{ product.name }}"
+                                 loading="lazy">
+                        </a>
+                    </div>
+
+                    <!-- Product Body -->
+                    <div class="product-body">
+                        {% if product.category %}
+                        <div class="product-category-tag">{{ product.category.name }}</div>
+                        {% endif %}
+
+                        <h5 class="product-name">
+                            <a href="{% url 'product_detail' product.slug %}">{{ product.name }}</a>
+                        </h5>
+
+                        <!-- Rating -->
+                        <div class="product-rating">
+                            <div class="stars">
+                                {% for i in product.get_star_range %}⭐{% endfor %}{% for i in product.get_empty_star_range %}☆{% endfor %}
+                            </div>
+                            <span class="rating-number">{{ product.rating }}</span>
+                            <span class="rating-count">({{ product.review_count }} reviews)</span>
+                        </div>
+
+                        <!-- Price + Add to Cart -->
+                        <div class="product-footer">
+                            <div class="product-price">
+                                <span class="currency">₹</span>{{ product.price|floatformat:0 }}
+                            </div>
+                            <button class="btn-add-cart"
+                                    data-add-to-cart="{{ product.id }}"
+                                    data-qty="1">
+                                <i class="bi bi-bag-plus"></i> Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-12 text-center py-5">
+                <div class="empty-state">
+                    <div class="empty-state-icon">🛍️</div>
+                    <h4 class="empty-state-title">No Products Yet</h4>
+                    <p class="empty-state-text">Run <code>python manage.py seed_data</code> to populate products.</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- View All Button -->
+        {% if featured_products %}
+        <div class="text-center mt-5">
+            <a href="{% url 'shop' %}" class="btn-primary-pink" style="padding: 14px 44px; font-size: 1rem;">
+                <i class="bi bi-grid-3x3-gap"></i> View All Products
+            </a>
+        </div>
+        {% endif %}
+    </div>
+</section>
+
+<!-- =========================================================
+     TOP CATEGORIES SECTION (Image Cards with Carousel)
+     ========================================================= -->
+<section class="categories-section" id="categories">
+    <div class="container">
+        <div class="section-header">
+            <h2 class="section-title">Top <span class="pink">Categories</span></h2>
+            <div class="section-divider"></div>
+        </div>
+        <div class="position-relative">
+            <div class="top-cat-carousel" id="topCatCarousel">
+                <!-- Lipsticks -->
+                <div class="top-cat-card">
+                    <div class="top-cat-img-wrap">
+                        <img src="https://images.unsplash.com/photo-1512496015851-a90fb38ba796?w=300&h=200&fit=crop&crop=center" alt="Lipsticks">
+                    </div>
+                    <div class="top-cat-body">
+                        <div class="top-cat-name">Lipsticks</div>
+                        <div class="top-cat-sub">Vibrant &amp; Bold Color</div>
+                        <a href="{% url 'shop' %}?category=lipstick" class="top-cat-btn">Shop Now</a>
+                    </div>
+                </div>
+                <!-- Skincare -->
+                <div class="top-cat-card">
+                    <div class="top-cat-img-wrap">
+                        <img src="https://images.unsplash.com/photo-1556228720-da92f67f2e1e?w=300&h=200&fit=crop&crop=center" alt="Skincare">
+                    </div>
+                    <div class="top-cat-body">
+                        <div class="top-cat-name">Skincare</div>
+                        <div class="top-cat-sub">Hydrating essentials</div>
+                        <a href="{% url 'shop' %}?category=serum" class="top-cat-btn">Shop Now</a>
+                    </div>
+                </div>
+                <!-- Eye Makeup -->
+                <div class="top-cat-card">
+                    <div class="top-cat-img-wrap">
+                        <img src="https://images.unsplash.com/photo-1583241800698-e8ab01830a22?w=300&h=200&fit=crop&crop=center" alt="Eye Makeup">
+                    </div>
+                    <div class="top-cat-body">
+                        <div class="top-cat-name">Eye Makeup</div>
+                        <div class="top-cat-sub">Shadows &amp; Liners</div>
+                        <a href="{% url 'shop' %}?category=blush" class="top-cat-btn">Shop Now</a>
+                    </div>
+                </div>
+                <!-- Hair Care -->
+                <div class="top-cat-card">
+                    <div class="top-cat-img-wrap">
+                        <img src="https://images.unsplash.com/photo-1585751119414-ef2636f8aede?w=300&h=200&fit=crop&crop=center" alt="Hair Care">
+                    </div>
+                    <div class="top-cat-body">
+                        <div class="top-cat-name">Hair care</div>
+                        <div class="top-cat-sub">Shampoos &amp; Oils</div>
+                        <a href="{% url 'shop' %}" class="top-cat-btn">Shop Now</a>
+                    </div>
+                </div>
+                <!-- Foundation -->
+                <div class="top-cat-card">
+                    <div class="top-cat-img-wrap">
+                        <img src="https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=300&h=200&fit=crop&crop=center" alt="Foundation">
+                    </div>
+                    <div class="top-cat-body">
+                        <div class="top-cat-name">Foundation</div>
+                        <div class="top-cat-sub">Flawless Coverage</div>
+                        <a href="{% url 'shop' %}?category=foundation" class="top-cat-btn">Shop Now</a>
+                    </div>
+                </div>
+                <!-- Lip Gloss -->
+                <div class="top-cat-card">
+                    <div class="top-cat-img-wrap">
+                        <img src="https://images.unsplash.com/photo-1599733594230-6b823276b5b0?w=300&h=200&fit=crop&crop=center" alt="Lip Gloss">
+                    </div>
+                    <div class="top-cat-body">
+                        <div class="top-cat-name">Lip Gloss</div>
+                        <div class="top-cat-sub">Shine &amp; Nourish</div>
+                        <a href="{% url 'shop' %}?category=lip-gloss" class="top-cat-btn">Shop Now</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Carousel Arrow -->
+            <button class="top-cat-arrow" id="topCatNext">
+                <i class="bi bi-chevron-right"></i>
+            </button>
+        </div>
+    </div>
+</section>
+
+<!-- =========================================================
+     WHY GLOWIFY SECTION
+     ========================================================= -->
+<section class="why-glowify-section">
+    <div class="container text-center">
+        <h2 class="section-title mb-4">Why <span class="pink">Glowify</span></h2>
+        <div class="why-glowify-img-wrap">
+            <div class="why-flower-bg"></div>
+            <img src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=400&h=450&fit=crop&crop=top"
+                 alt="Why Glowify" class="why-girl-img">
+        </div>
+        <div class="row g-4 mt-4 justify-content-center">
+            <div class="col-md-3 col-6">
+                <div class="why-stat-card">
+                    <div class="why-stat-icon">🌿</div>
+                    <div class="why-stat-title">100% Natural</div>
+                    <div class="why-stat-text">Cruelty-free, dermatologist-approved formulas</div>
+                </div>
+            </div>
+            <div class="col-md-3 col-6">
+                <div class="why-stat-card">
+                    <div class="why-stat-icon">🔬</div>
+                    <div class="why-stat-title">Science-Backed</div>
+                    <div class="why-stat-text">Clinically proven active ingredients</div>
+                </div>
+            </div>
+            <div class="col-md-3 col-6">
+                <div class="why-stat-card">
+                    <div class="why-stat-icon">💖</div>
+                    <div class="why-stat-title">50K+ Customers</div>
+                    <div class="why-stat-text">Loved by beauty enthusiasts across India</div>
+                </div>
+            </div>
+            <div class="col-md-3 col-6">
+                <div class="why-stat-card">
+                    <div class="why-stat-icon">🚚</div>
+                    <div class="why-stat-title">Fast Delivery</div>
+                    <div class="why-stat-text">Free shipping on orders above ₹999</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- =========================================================
+     HAPPY CUSTOMERS (Testimonials Carousel)
+     ========================================================= -->
+<section class="testimonials-section">
+    <div class="container">
+        <div class="section-header">
+            <h2 class="section-title">Happy <span class="pink">Customers</span></h2>
+            <div class="section-divider"></div>
+        </div>
+        <div class="testimonial-carousel-wrap">
+            <button class="testi-arrow testi-prev" id="testiPrev"><i class="bi bi-chevron-left"></i></button>
+            <div class="testimonial-track" id="testiTrack">
+                <div class="testimonial-card active">
+                    <img src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=80&h=80&fit=crop&crop=face" alt="Ananya R." class="testi-avatar">
+                    <div class="testi-stars">⭐⭐⭐⭐⭐</div>
+                    <p class="testi-quote">"I have very oily, acne-prone skin and Glowify changed everything. It feels lightweight and absorbs instantly."</p>
+                    <div class="testi-name">– Ananya R., Bangalore</div>
+                </div>
+                <div class="testimonial-card">
+                    <img src="https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?w=80&h=80&fit=crop&crop=face" alt="Priya S." class="testi-avatar">
+                    <div class="testi-stars">⭐⭐⭐⭐⭐</div>
+                    <p class="testi-quote">"The Radiant Glow Serum is absolutely amazing! My skin feels so hydrated and the glow is unreal. 10/10 recommend!"</p>
+                    <div class="testi-name">– Priya S., Mumbai</div>
+                </div>
+                <div class="testimonial-card">
+                    <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=80&h=80&fit=crop&crop=face" alt="Meera K." class="testi-avatar">
+                    <div class="testi-stars">⭐⭐⭐⭐⭐</div>
+                    <p class="testi-quote">"Love the Rose Bliss Lipstick! It stays on for hours and doesn't dry out my lips. The packaging is so pretty too!"</p>
+                    <div class="testi-name">– Meera K., Chennai</div>
+                </div>
+                <div class="testimonial-card">
+                    <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=80&h=80&fit=crop&crop=face" alt="Sneha T." class="testi-avatar">
+                    <div class="testi-stars">⭐⭐⭐⭐⭐</div>
+                    <p class="testi-quote">"Glowify's foundation blends seamlessly and lasts all day. I've tried many brands but this is my all-time favourite!"</p>
+                    <div class="testi-name">– Sneha T., Delhi</div>
+                </div>
+            </div>
+            <button class="testi-arrow testi-next" id="testiNext"><i class="bi bi-chevron-right"></i></button>
+        </div>
+        <!-- Dots -->
+        <div class="testi-dots" id="testiDots">
+            <span class="testi-dot active" data-index="0"></span>
+            <span class="testi-dot" data-index="1"></span>
+            <span class="testi-dot" data-index="2"></span>
+            <span class="testi-dot" data-index="3"></span>
+        </div>
+    </div>
+</section>
+
+<!-- =========================================================
+     JOIN THE INNER CIRCLE (Newsletter)
+     ========================================================= -->
+<section class="newsletter-section">
+    <div class="container text-center">
+        <h2 class="newsletter-title">Join The Inner Circle</h2>
+        <p class="newsletter-sub">Sign up to receive early access to new launches, exclusive offers and skincare tips.</p>
+        <form class="newsletter-form" onsubmit="return false;">
+            <input type="email" class="newsletter-input" placeholder="Enter Your Email">
+            <button type="submit" class="newsletter-btn">Register</button>
+        </form>
+    </div>
+</section>
+
+<!-- =========================================================
+     FLASH SALE BANNER
+     ========================================================= -->
+<section class="flash-sale-section">
+    <div class="flash-sale-inner">
+        <div class="flash-girl-wrap">
+            <img src="https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=200&h=280&fit=crop&crop=center" alt="Flash Sale" class="flash-girl-img">
+        </div>
+        <div class="flash-center">
+            <div class="flash-tag">
+                <i class="bi bi-lightning-fill"></i> Flash Sale
+            </div>
+            <div class="flash-percent">50<span>%</span></div>
+            <div class="flash-off">Off</div>
+            <p class="flash-tagline">"Glow Confidently every Day"</p>
+            <a href="{% url 'shop' %}" class="flash-btn">Shop Now</a>
+        </div>
+        <div class="flash-products-wrap">
+            <img src="https://images.unsplash.com/photo-1598662957563-ee4965d4d72c?w=200&h=280&fit=crop&crop=center" alt="Products" class="flash-products-img">
+        </div>
+    </div>
+    <!-- Carousel dots -->
+    <div class="flash-dots">
+        <span class="flash-dot active"></span>
+        <span class="flash-dot"></span>
+        <span class="flash-dot"></span>
+    </div>
+</section>
+
+<!-- =========================================================
+     PROMO BANNER
+     ========================================================= -->
+<section style="background: var(--gradient-primary); padding: 70px 0;">
+    <div class="container text-center">
+        <h2 style="font-family: var(--font-display); font-size: 2.5rem; color: white; margin-bottom: 14px;">
+            Your Glow Journey Starts Here
+        </h2>
+        <p style="color: rgba(255,255,255,0.85); font-size: 1.1rem; margin-bottom: 30px; max-width: 500px; margin-left: auto; margin-right: auto;">
+            Join 50,000+ glowing skin enthusiasts. Get exclusive offers, skincare tips, and early access to new launches.
+        </p>
+        <div class="d-flex justify-content-center gap-3 flex-wrap">
+            <a href="{% url 'shop' %}" style="background:white; color:var(--primary); padding:14px 36px; border-radius:50px; font-weight:700; font-size:1rem; text-decoration:none; box-shadow: 0 5px 20px rgba(0,0,0,0.15); display:inline-flex; align-items:center; gap:8px; transition: all 0.3s ease;">
+                <i class="bi bi-bag-heart-fill"></i> Shop Now
+            </a>
+            <a href="{% url 'about' %}" style="background:transparent; color:white; border:2px solid rgba(255,255,255,0.7); padding:14px 30px; border-radius:50px; font-weight:600; font-size:1rem; text-decoration:none; display:inline-flex; align-items:center; gap:8px; transition: all 0.3s ease;">
+                <i class="bi bi-play-circle"></i> Our Story
+            </a>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+  // Ingredient cards slide-in
+  const ingredientCards = document.querySelectorAll('.ingredient-card');
+  const ingObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        ingredientCards.forEach(card => card.classList.add('slide-in'));
+        ingObserver.disconnect();
+      }
+    });
+  }, { threshold: 0.15 });
+  const ingredientsSection = document.querySelector('.ingredients-section');
+  if (ingredientsSection) ingObserver.observe(ingredientsSection);
+
+  // Top Categories carousel arrow
+  const carousel = document.getElementById('topCatCarousel');
+  document.getElementById('topCatNext')?.addEventListener('click', () => {
+    carousel.scrollBy({ left: 230, behavior: 'smooth' });
+  });
+
+  // Testimonials slider
+  const testiCards = document.querySelectorAll('.testimonial-card');
+  const testiDots = document.querySelectorAll('.testi-dot');
+  let testiIndex = 0;
+  function showTesti(idx) {
+    testiCards.forEach(c => c.classList.remove('active'));
+    testiDots.forEach(d => d.classList.remove('active'));
+    testiIndex = (idx + testiCards.length) % testiCards.length;
+    testiCards[testiIndex].classList.add('active');
+    testiDots[testiIndex].classList.add('active');
+  }
+  document.getElementById('testiNext')?.addEventListener('click', () => showTesti(testiIndex + 1));
+  document.getElementById('testiPrev')?.addEventListener('click', () => showTesti(testiIndex - 1));
+  testiDots.forEach(dot => dot.addEventListener('click', () => showTesti(+dot.dataset.index)));
+  // Auto-rotate every 4s
+  setInterval(() => showTesti(testiIndex + 1), 4000);
+</script>
+{% endblock %}

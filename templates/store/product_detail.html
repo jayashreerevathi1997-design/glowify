@@ -1,0 +1,263 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ product.name }} – Glowify{% endblock %}
+
+{% block content %}
+
+<!-- Page Header / Breadcrumb -->
+<div style="background: var(--bg-cream); padding: 18px 0; border-bottom: 1px solid var(--border-light);">
+    <div class="container">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb mb-0">
+                <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+                <li class="breadcrumb-item"><a href="{% url 'shop' %}">Shop</a></li>
+                {% if product.category %}
+                <li class="breadcrumb-item">
+                    <a href="{% url 'shop' %}?category={{ product.category.slug }}">{{ product.category.name }}</a>
+                </li>
+                {% endif %}
+                <li class="breadcrumb-item active">{{ product.name|truncatechars:30 }}</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+
+<!-- Product Detail Section -->
+<section class="product-detail-section">
+    <div class="container">
+        <div class="row g-5">
+
+            <!-- Product Image -->
+            <div class="col-lg-5">
+                <div class="product-detail-img-main">
+                    <img src="{% if product.image_url %}{{ product.image_url }}{% else %}https://picsum.photos/seed/{{ product.slug }}/600/600{% endif %}"
+                         alt="{{ product.name }}" id="mainProductImage">
+                </div>
+
+                <!-- Thumbnail Images (visual mock) -->
+                <div class="d-flex gap-2 mt-3">
+                    {% for i in "123" %}
+                    <div style="width: 80px; height: 80px; border-radius: 12px; overflow: hidden; cursor: pointer; border: 2px solid {% if forloop.counter == 1 %}var(--primary){% else %}var(--border-light){% endif %};"
+                         onclick="changeImage(this, 'https://picsum.photos/seed/{{ product.slug }}{{ forloop.counter }}/600/600')">
+                        <img src="https://picsum.photos/seed/{{ product.slug }}{{ forloop.counter }}/80/80"
+                             style="width:100%; height:100%; object-fit:cover;" alt="View {{ forloop.counter }}">
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <!-- Product Info -->
+            <div class="col-lg-7">
+                <!-- Badge -->
+                {% if product.badge %}
+                <span class="product-badge {{ product.badge_class }}" style="position:static; display:inline-block; margin-bottom:14px;">
+                    {{ product.badge }}
+                </span>
+                {% endif %}
+
+                <!-- Category -->
+                {% if product.category %}
+                <div class="product-detail-category">
+                    <i class="bi bi-tag me-1"></i>{{ product.category.name }}
+                </div>
+                {% endif %}
+
+                <!-- Name -->
+                <h1 class="product-detail-name">{{ product.name }}</h1>
+
+                <!-- Rating Row -->
+                <div class="product-detail-rating">
+                    <div class="stars" style="font-size: 1.1rem;">
+                        {% for i in star_range %}⭐{% endfor %}{% for i in empty_star_range %}☆{% endfor %}
+                    </div>
+                    <span style="font-weight: 600; color: var(--text-dark); font-size: 1rem;">{{ product.rating }}</span>
+                    <span style="color: var(--text-light); font-size: 0.9rem;">({{ product.review_count }} verified reviews)</span>
+                    <span style="color: #4caf50; font-size: 0.82rem; font-weight: 600; background: #e8f5e9; padding: 3px 10px; border-radius: 50px;">
+                        <i class="bi bi-check-circle"></i> In Stock ({{ product.stock }} left)
+                    </span>
+                </div>
+
+                <!-- Price -->
+                <div class="product-detail-price">
+                    <span style="font-size: 1.2rem; font-family: var(--font-main); vertical-align: super; margin-right: 2px; font-weight: 600;">₹</span>{{ product.price|floatformat:0 }}
+                </div>
+
+                <!-- Description -->
+                <p style="color: var(--text-medium); font-size: 0.95rem; line-height: 1.8; margin-bottom: 28px; border-bottom: 1px solid var(--border-light); padding-bottom: 24px;">
+                    {{ product.description }}
+                </p>
+
+                <!-- Quantity + Add to Cart -->
+                <div class="d-flex align-items-center gap-3 flex-wrap mb-4">
+                    <div class="qty-control">
+                        <button class="qty-btn" onclick="decreaseQty()">−</button>
+                        <input type="number" class="qty-input" id="qtyInput" value="1" min="1" max="{{ product.stock }}">
+                        <button class="qty-btn" onclick="increaseQty()">+</button>
+                    </div>
+
+                    <button class="btn-detail-cart"
+                            id="addToCartBtn"
+                            data-add-to-cart="{{ product.id }}"
+                            data-qty="1"
+                            onclick="updateQtyBeforeAdd(this)">
+                        <i class="bi bi-bag-plus me-2"></i> Add to Cart
+                    </button>
+
+                    <button class="btn-detail-wishlist {% if in_wishlist %}active{% endif %}"
+                            data-toggle-wishlist="{{ product.id }}"
+                            title="{% if in_wishlist %}Remove from Wishlist{% else %}Add to Wishlist{% endif %}">
+                        <i class="bi bi-heart{% if in_wishlist %}-fill{% endif %}"></i>
+                    </button>
+                </div>
+
+                <!-- Product Highlights -->
+                <div style="background: var(--bg-cream); border-radius: var(--radius-md); padding: 20px; border: 1px solid var(--border-light);">
+                    <h6 style="font-weight: 600; color: var(--text-dark); margin-bottom: 14px; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px;">
+                        <i class="bi bi-stars me-2" style="color:var(--primary)"></i> Product Highlights
+                    </h6>
+                    <div class="row g-2">
+                        <div class="col-6">
+                            <div class="d-flex align-items-center gap-2">
+                                <i class="bi bi-check-circle-fill" style="color: var(--primary); font-size: 0.9rem;"></i>
+                                <span style="font-size: 0.84rem; color: var(--text-medium);">Dermatologist Tested</span>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="d-flex align-items-center gap-2">
+                                <i class="bi bi-check-circle-fill" style="color: var(--primary); font-size: 0.9rem;"></i>
+                                <span style="font-size: 0.84rem; color: var(--text-medium);">Cruelty-Free</span>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="d-flex align-items-center gap-2">
+                                <i class="bi bi-check-circle-fill" style="color: var(--primary); font-size: 0.9rem;"></i>
+                                <span style="font-size: 0.84rem; color: var(--text-medium);">Paraben-Free</span>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="d-flex align-items-center gap-2">
+                                <i class="bi bi-check-circle-fill" style="color: var(--primary); font-size: 0.9rem;"></i>
+                                <span style="font-size: 0.84rem; color: var(--text-medium);">Made in India</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Delivery Info -->
+                <div class="d-flex gap-4 mt-4">
+                    <div class="d-flex align-items-center gap-2">
+                        <i class="bi bi-truck" style="color: var(--primary); font-size: 1.2rem;"></i>
+                        <div>
+                            <div style="font-weight: 600; font-size: 0.82rem; color: var(--text-dark);">Free Delivery</div>
+                            <div style="font-size: 0.75rem; color: var(--text-light);">On orders ₹999+</div>
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-center gap-2">
+                        <i class="bi bi-arrow-return-left" style="color: var(--primary); font-size: 1.2rem;"></i>
+                        <div>
+                            <div style="font-weight: 600; font-size: 0.82rem; color: var(--text-dark);">Easy Returns</div>
+                            <div style="font-size: 0.75rem; color: var(--text-light);">30 day policy</div>
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-center gap-2">
+                        <i class="bi bi-shield-check" style="color: var(--primary); font-size: 1.2rem;"></i>
+                        <div>
+                            <div style="font-weight: 600; font-size: 0.82rem; color: var(--text-dark);">100% Authentic</div>
+                            <div style="font-size: 0.75rem; color: var(--text-light);">Certified product</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Related Products -->
+{% if related_products %}
+<section style="padding: 70px 0; background: var(--bg-light);">
+    <div class="container">
+        <div class="section-header">
+            <span class="section-tag">✦ You May Also Like</span>
+            <h2 class="section-title">Related <span class="pink">Products</span></h2>
+            <div class="section-divider"></div>
+        </div>
+
+        <div class="row g-4">
+            {% for rel in related_products %}
+            <div class="col-lg-3 col-md-6">
+                <div class="product-card fade-in">
+                    <div class="product-img-wrapper">
+                        {% if rel.badge %}
+                        <span class="product-badge {{ rel.badge_class }}">{{ rel.badge }}</span>
+                        {% endif %}
+                        <button class="wishlist-btn" data-toggle-wishlist="{{ rel.id }}">
+                            <i class="bi bi-heart"></i>
+                        </button>
+                        <a href="{% url 'product_detail' rel.slug %}">
+                            <img src="{% if rel.image_url %}{{ rel.image_url }}{% else %}https://picsum.photos/seed/{{ rel.slug }}/400/400{% endif %}"
+                                 alt="{{ rel.name }}" loading="lazy">
+                        </a>
+                    </div>
+                    <div class="product-body">
+                        {% if rel.category %}
+                        <div class="product-category-tag">{{ rel.category.name }}</div>
+                        {% endif %}
+                        <h5 class="product-name">
+                            <a href="{% url 'product_detail' rel.slug %}">{{ rel.name }}</a>
+                        </h5>
+                        <div class="product-rating">
+                            <div class="stars">
+                                {% for i in "12345" %}
+                                    {% if forloop.counter <= rel.rating %}⭐{% else %}☆{% endif %}
+                                {% endfor %}
+                            </div>
+                            <span class="rating-number">{{ rel.rating }}</span>
+                        </div>
+                        <div class="product-footer">
+                            <div class="product-price"><span class="currency">₹</span>{{ rel.price|floatformat:0 }}</div>
+                            <button class="btn-add-cart" data-add-to-cart="{{ rel.id }}" data-qty="1">
+                                <i class="bi bi-bag-plus"></i> Add
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+function decreaseQty() {
+    const input = document.getElementById('qtyInput');
+    const current = parseInt(input.value);
+    if (current > 1) input.value = current - 1;
+}
+
+function increaseQty() {
+    const input = document.getElementById('qtyInput');
+    const max = parseInt(input.max) || 99;
+    const current = parseInt(input.value);
+    if (current < max) input.value = current + 1;
+}
+
+function updateQtyBeforeAdd(btn) {
+    const qty = document.getElementById('qtyInput').value;
+    btn.dataset.qty = qty;
+}
+
+function changeImage(thumb, url) {
+    document.getElementById('mainProductImage').src = url;
+    // Update thumbnail borders
+    document.querySelectorAll('.product-detail-img-main').forEach(t => {
+        t.style.borderColor = 'var(--border-light)';
+    });
+    thumb.style.borderColor = 'var(--primary)';
+}
+</script>
+{% endblock %}

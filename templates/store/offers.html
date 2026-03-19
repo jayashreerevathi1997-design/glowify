@@ -1,0 +1,260 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Offers & Deals – Glowify{% endblock %}
+
+{% block content %}
+
+<!-- =========================================================
+     HERO OFFER CAROUSEL
+     ========================================================= -->
+<section style="margin-bottom: 0;">
+    <div id="offerCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="4000">
+
+        <!-- Indicators -->
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#offerCarousel" data-bs-slide-to="0" class="active"></button>
+            <button type="button" data-bs-target="#offerCarousel" data-bs-slide-to="1"></button>
+            <button type="button" data-bs-target="#offerCarousel" data-bs-slide-to="2"></button>
+        </div>
+
+        <div class="carousel-inner">
+
+            <!-- Slide 1 -->
+            <div class="carousel-item active">
+                <div style="background: linear-gradient(135deg, #f8a4c8 0%, #f06292 40%, #e91e8c 100%); min-height: 260px; display:flex; align-items:center; position:relative; overflow:hidden; padding: 30px 0;">
+                    <!-- Confetti dots background -->
+                    <div style="position:absolute;inset:0; background-image: radial-gradient(circle, rgba(255,255,255,0.3) 1px, transparent 1px); background-size: 30px 30px; opacity:0.4;"></div>
+                    <div class="container" style="position:relative; z-index:2;">
+                        <div class="row align-items-center">
+                            <div class="col-md-5 text-white">
+                                <div style="display:flex; gap:16px; flex-wrap:wrap; margin-bottom:20px;">
+                                    <div style="background:white; color:#e91e8c; border-radius:12px; padding:14px 20px; text-align:center; box-shadow:0 4px 16px rgba(0,0,0,0.15);">
+                                        <div style="font-size:1.3rem; font-weight:800; color:#e91e8c;">BIG</div>
+                                        <div style="font-size:1.5rem; font-weight:900; color:#e91e8c;">SALE!</div>
+                                    </div>
+                                    <div style="background:white; color:#e91e8c; border-radius:12px; padding:14px 20px; text-align:center; box-shadow:0 4px 16px rgba(0,0,0,0.15);">
+                                        <div style="font-size:0.8rem; font-weight:600; color:#666;">UP TO</div>
+                                        <div style="font-size:1.8rem; font-weight:900; color:#e91e8c; line-height:1;">50%</div>
+                                        <div style="font-size:1rem; font-weight:700; color:#e91e8c;">OFF</div>
+                                    </div>
+                                    <div style="background:white; color:#e91e8c; border-radius:12px; padding:14px 20px; text-align:center; box-shadow:0 4px 16px rgba(0,0,0,0.15);">
+                                        <div style="font-size:0.75rem; font-weight:700; color:#e91e8c;">LIMTED TIME</div>
+                                        <div style="font-size:1.1rem; font-weight:800; color:#e91e8c;">OFFER</div>
+                                    </div>
+                                </div>
+                                <h2 style="font-family:var(--font-display); font-size:2rem; font-weight:700; color:white; margin-bottom:8px; text-shadow:0 2px 8px rgba(0,0,0,0.2);">
+                                    Unbeatable Deals<br>on Top Brands!
+                                </h2>
+                                <p style="color:rgba(255,255,255,0.9); font-size:0.9rem;">Shop now and save big on your favourites</p>
+                                <a href="{% url 'shop' %}" style="background:white; color:#e91e8c; padding:10px 28px; border-radius:50px; font-weight:700; text-decoration:none; display:inline-block; margin-top:10px; box-shadow:0 4px 12px rgba(0,0,0,0.15);">
+                                    Shop Now
+                                </a>
+                            </div>
+                            <div class="col-md-7 d-flex justify-content-end align-items-center gap-3 flex-wrap">
+                                <div style="position:relative;">
+                                    <img src="https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=200&h=220&fit=crop&crop=center" alt="Sale" style="border-radius:16px; width:180px; height:200px; object-fit:cover; box-shadow:0 8px 24px rgba(0,0,0,0.2);">
+                                </div>
+                                <!-- Discount badges -->
+                                <div style="display:flex; flex-direction:column; gap:12px;">
+                                    <div style="background: linear-gradient(135deg, #ff6b6b, #ee5a24); color:white; border-radius:50%; width:68px; height:68px; display:flex; flex-direction:column; align-items:center; justify-content:center; box-shadow:0 4px 12px rgba(0,0,0,0.2);">
+                                        <div style="font-size:1.1rem; font-weight:900; line-height:1;">40%</div>
+                                        <div style="font-size:0.65rem; font-weight:700;">OFF</div>
+                                    </div>
+                                    <div style="background: linear-gradient(135deg, #a29bfe, #6c5ce7); color:white; border-radius:50%; width:68px; height:68px; display:flex; flex-direction:column; align-items:center; justify-content:center; box-shadow:0 4px 12px rgba(0,0,0,0.2);">
+                                        <div style="font-size:1.1rem; font-weight:900; line-height:1;">30%</div>
+                                        <div style="font-size:0.65rem; font-weight:700;">OFF</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 2 -->
+            <div class="carousel-item">
+                <div style="background: linear-gradient(135deg, #f48fb1 0%, #ce93d8 60%, #9c27b0 100%); min-height: 260px; display:flex; align-items:center; position:relative; overflow:hidden; padding: 30px 0;">
+                    <div style="position:absolute;inset:0; background-image: radial-gradient(circle, rgba(255,255,255,0.3) 1px, transparent 1px); background-size: 30px 30px; opacity:0.4;"></div>
+                    <div class="container" style="position:relative; z-index:2;">
+                        <div class="row align-items-center">
+                            <div class="col-md-6 text-white">
+                                <div style="background:rgba(255,255,255,0.2); display:inline-block; padding:6px 18px; border-radius:50px; font-size:0.8rem; font-weight:600; letter-spacing:2px; text-transform:uppercase; margin-bottom:16px; border:1px solid rgba(255,255,255,0.4);">
+                                    ✨ Exclusive Bundle
+                                </div>
+                                <h2 style="font-family:var(--font-display); font-size:2.2rem; font-weight:700; color:white; margin-bottom:10px;">
+                                    Buy 1 Get 1 <span style="color:#ffd700;">FREE</span>
+                                </h2>
+                                <p style="color:rgba(255,255,255,0.9); font-size:1rem; margin-bottom:20px;">On all lip products. Mix & match your favourites!</p>
+                                <a href="{% url 'shop' %}?category=lipstick" style="background:white; color:#9c27b0; padding:10px 28px; border-radius:50px; font-weight:700; text-decoration:none; display:inline-block; box-shadow:0 4px 12px rgba(0,0,0,0.2);">
+                                    Shop Lips
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 3 -->
+            <div class="carousel-item">
+                <div style="background: linear-gradient(135deg, #ffd54f 0%, #ff9800 50%, #f44336 100%); min-height: 260px; display:flex; align-items:center; position:relative; overflow:hidden; padding: 30px 0;">
+                    <div style="position:absolute;inset:0; background-image: radial-gradient(circle, rgba(255,255,255,0.3) 1px, transparent 1px); background-size: 30px 30px; opacity:0.4;"></div>
+                    <div class="container" style="position:relative; z-index:2;">
+                        <div class="row align-items-center">
+                            <div class="col-md-6 text-white">
+                                <div style="background:rgba(255,255,255,0.2); display:inline-block; padding:6px 18px; border-radius:50px; font-size:0.8rem; font-weight:600; letter-spacing:2px; text-transform:uppercase; margin-bottom:16px; border:1px solid rgba(255,255,255,0.4);">
+                                    🔥 Flash Sale
+                                </div>
+                                <h2 style="font-family:var(--font-display); font-size:2.2rem; font-weight:700; color:white; margin-bottom:10px;">
+                                    40% OFF Serums
+                                </h2>
+                                <p style="color:rgba(255,255,255,0.9); font-size:1rem; margin-bottom:20px;">Power up your skincare routine this season!</p>
+                                <a href="{% url 'shop' %}?category=serum" style="background:white; color:#f44336; padding:10px 28px; border-radius:50px; font-weight:700; text-decoration:none; display:inline-block; box-shadow:0 4px 12px rgba(0,0,0,0.2);">
+                                    Shop Serums
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Prev / Next Controls -->
+        <button class="carousel-control-prev" type="button" data-bs-target="#offerCarousel" data-bs-slide="prev" style="width:44px; left:10px;">
+            <span style="background:#e91e8c; border-radius:50%; width:36px; height:36px; display:flex; align-items:center; justify-content:center;">
+                <i class="bi bi-chevron-left" style="color:white; font-size:1rem;"></i>
+            </span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#offerCarousel" data-bs-slide="next" style="width:44px; right:10px;">
+            <span style="background:#e91e8c; border-radius:50%; width:36px; height:36px; display:flex; align-items:center; justify-content:center;">
+                <i class="bi bi-chevron-right" style="color:white; font-size:1rem;"></i>
+            </span>
+        </button>
+    </div>
+</section>
+
+<!-- =========================================================
+     BUY 1 GET 1 FREE SECTION
+     ========================================================= -->
+<section style="padding: 50px 0 30px; background: #fff;">
+    <div class="container">
+        <h4 style="font-family:var(--font-display); font-size:1.4rem; font-weight:700; color:#222; margin-bottom:28px;">
+            Buy 1 Get 1 Free
+        </h4>
+
+        <div class="row g-4">
+            <!-- Product 1 -->
+            <div class="col-md-4">
+                <div style="border:1px solid #f0f0f0; border-radius:16px; overflow:hidden; background:#fff; box-shadow:0 2px 12px rgba(0,0,0,0.06);">
+                    <div style="height:200px; overflow:hidden;">
+                        <img src="https://images.unsplash.com/photo-1556228720-da92f67f2e1e?w=400&h=220&fit=crop&crop=center" alt="Vitamin C+ SPF Duo" style="width:100%; height:100%; object-fit:cover;">
+                    </div>
+                    <div style="padding:18px;">
+                        <h5 style="font-weight:700; font-size:1rem; margin-bottom:4px;">Vitamin C+ SPF Duo</h5>
+                        <p style="color:#888; font-size:0.82rem; margin-bottom:10px;">Daily Production Bundle</p>
+                        <div style="display:flex; align-items:center; gap:8px; margin-bottom:14px;">
+                            <span style="font-size:1.1rem; font-weight:700; color:#222;">₹350</span>
+                            <span style="font-size:0.85rem; color:#aaa; text-decoration:line-through;">₹500</span>
+                        </div>
+                        <button class="btn w-100" style="background:#e91e8c; color:white; border-radius:8px; font-weight:600; padding:10px;">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 2 -->
+            <div class="col-md-4">
+                <div style="border:1px solid #f0f0f0; border-radius:16px; overflow:hidden; background:#fff; box-shadow:0 2px 12px rgba(0,0,0,0.06);">
+                    <div style="height:200px; overflow:hidden;">
+                        <img src="https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=400&h=220&fit=crop&crop=center" alt="Cleaning oil + Palm set" style="width:100%; height:100%; object-fit:cover;">
+                    </div>
+                    <div style="padding:18px;">
+                        <h5 style="font-weight:700; font-size:1rem; margin-bottom:4px;">Cleaning oil + Palm set</h5>
+                        <p style="color:#888; font-size:0.82rem; margin-bottom:10px;">Double Cleanse Method</p>
+                        <div style="display:flex; align-items:center; gap:8px; margin-bottom:14px;">
+                            <span style="font-size:1.1rem; font-weight:700; color:#222;">₹350</span>
+                            <span style="font-size:0.85rem; color:#aaa; text-decoration:line-through;">₹500</span>
+                        </div>
+                        <button class="btn w-100" style="background:#e91e8c; color:white; border-radius:8px; font-weight:600; padding:10px;">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 3 -->
+            <div class="col-md-4">
+                <div style="border:1px solid #f0f0f0; border-radius:16px; overflow:hidden; background:#fff; box-shadow:0 2px 12px rgba(0,0,0,0.06);">
+                    <div style="height:200px; overflow:hidden;">
+                        <img src="https://images.unsplash.com/photo-1598662957563-ee4965d4d72c?w=400&h=220&fit=crop&crop=center" alt="Hyaluronic Acid + Mist" style="width:100%; height:100%; object-fit:cover;">
+                    </div>
+                    <div style="padding:18px;">
+                        <h5 style="font-weight:700; font-size:1rem; margin-bottom:4px;">Hyaluronic Acid + Mist</h5>
+                        <p style="color:#888; font-size:0.82rem; margin-bottom:10px;">Hydration Powerhouse</p>
+                        <div style="display:flex; align-items:center; gap:8px; margin-bottom:14px;">
+                            <span style="font-size:1.1rem; font-weight:700; color:#222;">₹350</span>
+                            <span style="font-size:0.85rem; color:#aaa; text-decoration:line-through;">₹500</span>
+                        </div>
+                        <button class="btn w-100" style="background:#e91e8c; color:white; border-radius:8px; font-weight:600; padding:10px;">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- =========================================================
+     EXCLUSIVE KIT SECTION
+     ========================================================= -->
+<section style="padding: 30px 0 50px; background: #fff;">
+    <div class="container">
+        <div style="border:1px solid #f0f0f0; border-radius:20px; overflow:hidden; box-shadow:0 4px 20px rgba(0,0,0,0.07);">
+            <div class="row g-0">
+                <!-- Image -->
+                <div class="col-md-5">
+                    <img src="https://images.unsplash.com/photo-1571781926291-c477ebfd024b?w=600&h=400&fit=crop&crop=center" alt="Midnight Repair Set"
+                         style="width:100%; height:100%; object-fit:cover; min-height:240px;">
+                </div>
+                <!-- Content -->
+                <div class="col-md-7 d-flex align-items-center">
+                    <div style="padding: 36px 40px;">
+                        <h3 style="font-family:var(--font-display); font-size:1.5rem; font-weight:700; color:#222; margin-bottom:14px;">
+                            Exclusive Kit: The Midnight Repair Set
+                        </h3>
+                        <p style="color:#666; font-size:0.92rem; line-height:1.7; margin-bottom:18px;">
+                            A curated collection of our most powerful overnight treatments. Include a full size Retinol Serum, Silk eye mask, and Deep hydration night cream.
+                        </p>
+                        <div style="display:flex; align-items:center; gap:12px; margin-bottom:22px;">
+                            <span style="font-size:1.4rem; font-weight:800; color:#222;">₹350</span>
+                            <span style="font-size:1rem; color:#aaa; text-decoration:line-through;">₹500</span>
+                            <span style="background:#fff3cd; color:#e65100; font-size:0.78rem; font-weight:700; padding:4px 12px; border-radius:50px;">Save 35 %</span>
+                        </div>
+                        <a href="{% url 'shop' %}" class="btn" style="background:#e91e8c; color:white; border-radius:8px; font-weight:600; padding:12px 32px; font-size:0.95rem; text-decoration:none;">
+                            Claim This Offer
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- =========================================================
+     JOIN THE INNER CIRCLE
+     ========================================================= -->
+<section style="padding: 50px 20px; background: linear-gradient(135deg, #e91e8c, #f06292); margin: 0 0 0 0;">
+    <div class="container text-center">
+        <h3 style="font-family:var(--font-display); font-size:1.8rem; font-weight:700; color:white; margin-bottom:8px;">
+            Join The Inner Circle
+        </h3>
+        <p style="color:rgba(255,255,255,0.88); font-size:0.92rem; margin-bottom:24px;">
+            Sign up to receive early access to new launches, exclusive offers and skincare tips.
+        </p>
+        <div class="d-flex justify-content-center gap-3 flex-wrap">
+            <input type="email" placeholder="Enter You Email" style="border:none; border-radius:8px; padding:12px 22px; width:300px; font-size:0.92rem; outline:none;">
+            <button class="btn" style="background:white; color:#e91e8c; font-weight:700; border-radius:8px; padding:12px 28px;">
+                Register
+            </button>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

@@ -1,0 +1,184 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Contact Us – Glowify{% endblock %}
+
+{% block content %}
+
+<!-- =========================================================
+     HERO BANNER
+     ========================================================= -->
+<section style="position:relative; overflow:hidden; height:190px;">
+    <img src="https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=1400&h=300&fit=crop&crop=top"
+         alt="Contact Hero" style="width:100%; height:100%; object-fit:cover; object-position:center;">
+    <div style="position:absolute; inset:0; background:rgba(255,255,255,0.45); display:flex; align-items:center; justify-content:center; flex-direction:column; text-align:center; padding:20px;">
+        <h2 style="font-family:var(--font-display); font-size:2rem; font-weight:700; color:#222; margin-bottom:8px;">
+            Get In Touch
+        </h2>
+        <p style="color:#444; font-size:0.9rem; max-width:400px; margin:0; line-height:1.6;">
+            Whether you have a question about our formulas or your recent order, our beauty experts are here to help.
+        </p>
+    </div>
+</section>
+
+<!-- =========================================================
+     MAIN CONTENT
+     ========================================================= -->
+<section style="padding: 40px 0 60px; background: #f9f9f9;">
+    <div class="container">
+        <div class="row g-4">
+
+            <!-- LEFT: Contact Form -->
+            <div class="col-md-7">
+                <div style="background:#fff; border-radius:14px; padding:28px; box-shadow:0 2px 12px rgba(0,0,0,0.06);">
+                    <h5 style="font-weight:700; font-size:1.05rem; color:#222; margin-bottom:20px;">Send a Message</h5>
+                    <form>
+                        {% csrf_token %}
+                        <div class="row g-3">
+                            <div class="col-6">
+                                <label style="font-size:0.82rem; font-weight:600; color:#555; display:block; margin-bottom:5px;">Full Name</label>
+                                <input type="text" placeholder="e.g Narmatha"
+                                       style="width:100%; border:1px solid #e0e0e0; border-radius:8px; padding:10px 14px; font-size:0.88rem; outline:none;">
+                            </div>
+                            <div class="col-6">
+                                <label style="font-size:0.82rem; font-weight:600; color:#555; display:block; margin-bottom:5px;">Email Id</label>
+                                <input type="email" placeholder="nar@gmail.com"
+                                       style="width:100%; border:1px solid #e0e0e0; border-radius:8px; padding:10px 14px; font-size:0.88rem; outline:none;">
+                            </div>
+                            <div class="col-12">
+                                <label style="font-size:0.82rem; font-weight:600; color:#555; display:block; margin-bottom:5px;">Mobile No</label>
+                                <input type="tel" placeholder="Enter mobile number"
+                                       style="width:100%; border:1px solid #e0e0e0; border-radius:8px; padding:10px 14px; font-size:0.88rem; outline:none;">
+                            </div>
+                            <div class="col-12">
+                                <label style="font-size:0.82rem; font-weight:600; color:#555; display:block; margin-bottom:5px;">Message</label>
+                                <textarea placeholder="Type here.." rows="4"
+                                          style="width:100%; border:1px solid #e0e0e0; border-radius:8px; padding:10px 14px; font-size:0.88rem; outline:none; resize:none;"></textarea>
+                            </div>
+                            <div class="col-12">
+                                <button type="submit"
+                                        style="background:#e91e8c; color:white; border:none; border-radius:8px; padding:11px 32px; font-weight:600; font-size:0.92rem; cursor:pointer;"
+                                        onclick="event.preventDefault(); alert('Message sent! We will get back to you shortly.');">
+                                    Send
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- RIGHT: Customer Services + Track/Cancel -->
+            <div class="col-md-5 d-flex flex-column gap-3">
+
+                <!-- Customer Services -->
+                <div style="background:#fff; border-radius:14px; padding:24px; box-shadow:0 2px 12px rgba(0,0,0,0.06);">
+                    <h5 style="font-weight:700; font-size:1rem; color:#222; margin-bottom:18px;">Customer Services</h5>
+
+                    <!-- Email Us -->
+                    <div style="display:flex; align-items:center; gap:14px; margin-bottom:16px;">
+                        <div style="width:42px; height:42px; background:#fff8e1; border-radius:10px; display:flex; align-items:center; justify-content:center; flex-shrink:0;">
+                            <span style="font-size:1.3rem;">✉️</span>
+                        </div>
+                        <div>
+                            <div style="font-weight:600; font-size:0.9rem; color:#222; margin-bottom:2px;">Email Us</div>
+                            <div style="font-size:0.82rem; color:#666;">supportglowify@gmail.com</div>
+                        </div>
+                    </div>
+
+                    <!-- Call Us -->
+                    <div style="display:flex; align-items:center; gap:14px;">
+                        <div style="width:42px; height:42px; background:#e3f2fd; border-radius:10px; display:flex; align-items:center; justify-content:center; flex-shrink:0;">
+                            <span style="font-size:1.3rem;">📞</span>
+                        </div>
+                        <div>
+                            <div style="font-weight:600; font-size:0.9rem; color:#222; margin-bottom:2px;">Call Us</div>
+                            <div style="font-size:0.82rem; color:#666;">+91-1234567890</div>
+                            <div style="font-size:0.82rem; color:#666;">+91-1234567890</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Track Your Order -->
+                <a href="#" style="background:#fff; border-radius:14px; padding:18px 22px; box-shadow:0 2px 12px rgba(0,0,0,0.06); display:flex; align-items:center; justify-content:space-between; text-decoration:none;">
+                    <span style="font-weight:600; font-size:0.95rem; color:#222;">Track You Order</span>
+                    <div style="width:32px; height:32px; border:1.5px solid #ddd; border-radius:50%; display:flex; align-items:center; justify-content:center;">
+                        <i class="bi bi-chevron-right" style="color:#555; font-size:0.85rem;"></i>
+                    </div>
+                </a>
+
+                <!-- Cancel Order -->
+                <a href="#" style="background:#fff; border-radius:14px; padding:18px 22px; box-shadow:0 2px 12px rgba(0,0,0,0.06); display:flex; align-items:center; justify-content:space-between; text-decoration:none;">
+                    <span style="font-weight:600; font-size:0.95rem; color:#222;">Cancel Order</span>
+                    <div style="width:32px; height:32px; border:1.5px solid #ddd; border-radius:50%; display:flex; align-items:center; justify-content:center;">
+                        <i class="bi bi-chevron-right" style="color:#555; font-size:0.85rem;"></i>
+                    </div>
+                </a>
+
+            </div>
+        </div>
+
+        <!-- =========================================================
+             FREQUENTLY ASKED QUESTIONS
+             ========================================================= -->
+        <div style="margin-top: 50px;">
+            <h4 style="font-family:var(--font-display); font-size:1.4rem; font-weight:700; color:#222; text-align:center; margin-bottom:24px;">
+                Frequently Asked Questions
+            </h4>
+
+            <div class="accordion" id="faqAccordion">
+
+                <div style="border:1px solid #e8e8e8; border-radius:10px; margin-bottom:10px; overflow:hidden; background:#fff;">
+                    <button style="width:100%; background:#fff; border:none; padding:16px 20px; text-align:left; font-weight:500; font-size:0.92rem; color:#222; display:flex; justify-content:space-between; align-items:center; cursor:pointer;"
+                            onclick="toggleFaq('faq1', this)">
+                        <span>1. Is Cream Luxe Finish lipstick long-lasting?</span>
+                        <i class="bi bi-chevron-down" style="color:#555; transition:transform 0.3s;"></i>
+                    </button>
+                    <div id="faq1" style="display:none; padding:0 20px 16px; color:#666; font-size:0.88rem; line-height:1.7;">
+                        Yes! Our Cream Luxe Finish lipstick is formulated for up to 8 hours of wear. The long-lasting formula keeps your lips moisturized and vibrant throughout the day.
+                    </div>
+                </div>
+
+                <div style="border:1px solid #e8e8e8; border-radius:10px; margin-bottom:10px; overflow:hidden; background:#fff;">
+                    <button style="width:100%; background:#fff; border:none; padding:16px 20px; text-align:left; font-weight:500; font-size:0.92rem; color:#222; display:flex; justify-content:space-between; align-items:center; cursor:pointer;"
+                            onclick="toggleFaq('faq2', this)">
+                        <span>2. Is it matte or glossy?</span>
+                        <i class="bi bi-chevron-down" style="color:#555; transition:transform 0.3s;"></i>
+                    </button>
+                    <div id="faq2" style="display:none; padding:0 20px 16px; color:#666; font-size:0.88rem; line-height:1.7;">
+                        We offer both matte and glossy finishes. The Cream Luxe Finish gives a satin finish — between matte and glossy — for a comfortable, modern look.
+                    </div>
+                </div>
+
+                <div style="border:1px solid #e8e8e8; border-radius:10px; margin-bottom:10px; overflow:hidden; background:#fff;">
+                    <button style="width:100%; background:#fff; border:none; padding:16px 20px; text-align:left; font-weight:500; font-size:0.92rem; color:#222; display:flex; justify-content:space-between; align-items:center; cursor:pointer;"
+                            onclick="toggleFaq('faq3', this)">
+                        <span>3. Does it dry out lips?</span>
+                        <i class="bi bi-chevron-down" style="color:#555; transition:transform 0.3s;"></i>
+                    </button>
+                    <div id="faq3" style="display:none; padding:0 20px 16px; color:#666; font-size:0.88rem; line-height:1.7;">
+                        Not at all! Our formula is enriched with Vitamin E and jojoba oil to keep your lips soft, hydrated, and nourished — even with all-day wear.
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+function toggleFaq(id, btn) {
+    const el = document.getElementById(id);
+    const icon = btn.querySelector('i');
+    if (el.style.display === 'none') {
+        el.style.display = 'block';
+        icon.style.transform = 'rotate(180deg)';
+    } else {
+        el.style.display = 'none';
+        icon.style.transform = 'rotate(0deg)';
+    }
+}
+</script>
+{% endblock %}

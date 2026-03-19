@@ -1,0 +1,364 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Glowify - Where Luxury Meets Skin Science. Premium skincare and beauty products.">
+    <title>{% block title %}Glowify – Where Luxury Meets Skin Science{% endblock %}</title>
+
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+    {% block extra_head %}{% endblock %}
+</head>
+<body>
+
+    <!-- =========================================================
+         NAVIGATION BAR
+         ========================================================= -->
+    <nav class="navbar navbar-expand-lg navbar-glowify">
+        <div class="container">
+            <!-- Brand Logo -->
+            <a class="navbar-brand navbar-brand-glowify" href="{% url 'home' %}">
+                Glow<span>ify</span>
+            </a>
+
+            <!-- Mobile Toggle -->
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarMain" aria-controls="navbarMain"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <i class="bi bi-list fs-4" style="color: var(--primary);"></i>
+            </button>
+
+            <!-- Nav Links + Icons -->
+            <div class="collapse navbar-collapse" id="navbarMain">
+                <ul class="navbar-nav mx-auto gap-1">
+                    <li class="nav-item">
+                        <a class="nav-link nav-link-glowify {% if request.resolver_match.url_name == 'home' %}active{% endif %}"
+                           href="{% url 'home' %}">Home</a>
+                    </li>
+                    <li class="nav-item dropdown shop-dropdown-item">
+                        <a class="nav-link nav-link-glowify {% if request.resolver_match.url_name == 'shop' %}active{% endif %} dropdown-toggle-shop"
+                           href="{% url 'shop' %}" id="shopDropdown">
+                            Shop
+                        </a>
+                        <div class="shop-dropdown-menu" id="shopDropdownMenu">
+                            <div class="shop-dropdown-inner">
+                                <a href="{% url 'shop' %}?category=eye-makeup" class="shop-cat-item">
+                                    <span>Eye Makeup</span><i class="bi bi-chevron-right"></i>
+                                </a>
+                                <a href="{% url 'shop' %}" class="shop-cat-item">
+                                    <span>Fragrance</span><i class="bi bi-chevron-right"></i>
+                                </a>
+                                <a href="{% url 'shop' %}" class="shop-cat-item">
+                                    <span>Hair Care</span><i class="bi bi-chevron-right"></i>
+                                </a>
+                                <a href="{% url 'shop' %}?category=lipstick" class="shop-cat-item">
+                                    <span>Lipsticks</span><i class="bi bi-chevron-right"></i>
+                                </a>
+                                <a href="{% url 'shop' %}" class="shop-cat-item">
+                                    <span>Nails</span><i class="bi bi-chevron-right"></i>
+                                </a>
+                                <a href="{% url 'shop' %}?category=serum" class="shop-cat-item">
+                                    <span>Skincare</span><i class="bi bi-chevron-right"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link nav-link-glowify {% if request.resolver_match.url_name == 'offers' %}active{% endif %}"
+                           href="{% url 'offers' %}">Offers</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link nav-link-glowify {% if request.resolver_match.url_name == 'about' %}active{% endif %}"
+                           href="{% url 'about' %}">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link nav-link-glowify {% if request.resolver_match.url_name == 'contact' %}active{% endif %}"
+                           href="{% url 'contact' %}">Contact</a>
+                    </li>
+                </ul>
+
+                <!-- Right-side Icon Buttons -->
+                <div class="nav-icons-group">
+                    <!-- Wishlist Icon -->
+                    <a href="{% url 'wishlist' %}" class="nav-icon-btn" title="Wishlist">
+                        <i class="bi bi-heart{% if wishlist_count > 0 %}-fill{% endif %}"></i>
+                        {% if wishlist_count > 0 %}
+                            <span class="nav-badge">{{ wishlist_count }}</span>
+                        {% endif %}
+                    </a>
+                    <!-- Cart Icon -->
+                    <a href="{% url 'cart' %}" class="nav-icon-btn" title="Cart" id="nav-cart-btn">
+                        <i class="bi bi-bag{% if cart_count > 0 %}-fill{% endif %}"></i>
+                        <span class="nav-badge" id="nav-cart-badge" {% if cart_count == 0 %}style="display:none"{% endif %}>
+                            {{ cart_count }}
+                        </span>
+                    </a>
+                    <!-- Profile Icon -->
+                    <a href="{% url 'login' %}" class="nav-icon-btn" title="Profile">
+                        <i class="bi bi-person"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- =========================================================
+         MESSAGES / ALERTS
+         ========================================================= -->
+    {% if messages %}
+    <div class="container mt-3">
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }} alert-dismissible fade show rounded-pill px-4" role="alert"
+             style="border: none; box-shadow: 0 4px 20px rgba(0,0,0,0.08);">
+            <i class="bi bi-check-circle-fill me-2"></i>{{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <!-- =========================================================
+         MAIN CONTENT
+         ========================================================= -->
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- =========================================================
+         FOOTER
+         ========================================================= -->
+    <footer class="footer-glowify">
+        <!-- Pink wave top -->
+        <div class="footer-wave">
+            <svg viewBox="0 0 1440 80" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M0,40 C360,80 1080,0 1440,40 L1440,80 L0,80 Z" fill="#e91e8c" opacity="0.15"/>
+                <path d="M0,60 C480,20 960,80 1440,50 L1440,80 L0,80 Z" fill="#e91e8c" opacity="0.1"/>
+            </svg>
+        </div>
+        <div class="container">
+            <div class="row g-4 align-items-start">
+                <!-- Brand Column -->
+                <div class="col-lg-3 col-md-6">
+                    <div class="footer-logo-circle">
+                        <span class="footer-logo-text">G</span>
+                    </div>
+                    <span class="footer-brand d-block mt-2">Glow<span>ify</span></span>
+                    <p class="footer-tagline">
+                        3rd Floor, Valasaravakkam,<br>Chennai – 600056
+                    </p>
+                    <div class="footer-social mt-3">
+                        <a href="#" class="social-btn"><i class="bi bi-facebook"></i></a>
+                        <a href="#" class="social-btn"><i class="bi bi-instagram"></i></a>
+                    </div>
+                </div>
+
+                <!-- Quick Links -->
+                <div class="col-lg-3 col-md-3 col-6">
+                    <h6 class="footer-heading">Quick Links</h6>
+                    <ul class="footer-links">
+                        <li><a href="{% url 'shop' %}">Shop</a></li>
+                        <li><a href="{% url 'offers' %}">New Arrivals</a></li>
+                        <li><a href="{% url 'offers' %}">Offers</a></li>
+                    </ul>
+                </div>
+
+                <!-- Support -->
+                <div class="col-lg-3 col-md-3 col-6">
+                    <h6 class="footer-heading">Support</h6>
+                    <ul class="footer-links">
+                        <li><a href="{% url 'about' %}">About</a></li>
+                        <li><a href="{% url 'contact' %}">Contact</a></li>
+                        <li><a href="#">Terms &amp; Conditions</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                    </ul>
+                </div>
+
+                <!-- Social Media -->
+                <div class="col-lg-3 col-md-6">
+                    <h6 class="footer-heading">Social Media</h6>
+                    <div class="footer-social-icons">
+                        <a href="#" class="footer-social-link"><i class="bi bi-facebook"></i> Facebook</a>
+                        <a href="#" class="footer-social-link"><i class="bi bi-instagram"></i> Instagram</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer Bottom -->
+            <div class="footer-bottom">
+                <p class="footer-bottom-text">
+                    &copy; 2025 Glowify. All rights reserved.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- =========================================================
+         TOAST NOTIFICATION CONTAINER
+         ========================================================= -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- =========================================================
+         BOOTSTRAP JS
+         ========================================================= -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- =========================================================
+         GLOBAL JS - CSRF & Toast & Cart/Wishlist AJAX
+         ========================================================= -->
+    <script>
+        // CSRF Token utility
+        function getCSRFToken() {
+            const name = 'csrftoken';
+            const cookies = document.cookie.split(';');
+            for (let c of cookies) {
+                c = c.trim();
+                if (c.startsWith(name + '=')) {
+                    return decodeURIComponent(c.substring(name.length + 1));
+                }
+            }
+            return null;
+        }
+
+        // Toast notification
+        function showToast(message, type = 'success') {
+            const container = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            toast.className = `glowify-toast ${type}`;
+            const icon = type === 'success' ? '✨' : type === 'error' ? '❌' : 'ℹ️';
+            toast.innerHTML = `<span style="font-size:1.2rem;">${icon}</span><span>${message}</span>`;
+            container.appendChild(toast);
+            setTimeout(() => {
+                toast.style.animation = 'slideOutRight 0.3s ease forwards';
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+
+        // Update cart badge in navbar
+        function updateCartBadge(count) {
+            const badge = document.getElementById('nav-cart-badge');
+            const btn = document.getElementById('nav-cart-btn');
+            if (badge) {
+                badge.textContent = count;
+                badge.style.display = count > 0 ? 'flex' : 'none';
+            }
+            if (btn) {
+                const icon = btn.querySelector('i');
+                if (icon) {
+                    icon.className = count > 0 ? 'bi bi-bag-fill' : 'bi bi-bag';
+                }
+            }
+        }
+
+        // Add to Cart - global handler
+        document.addEventListener('click', function(e) {
+            const btn = e.target.closest('[data-add-to-cart]');
+            if (!btn) return;
+            e.preventDefault();
+
+            const productId = btn.dataset.addToCart;
+            const url = `/cart/add/${productId}/`;
+            const qty = btn.dataset.qty || 1;
+
+            btn.disabled = true;
+            const originalHTML = btn.innerHTML;
+            btn.innerHTML = '<span class="spinner-border spinner-border-sm me-1"></span> Adding...';
+
+            fetch(url, {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': getCSRFToken(),
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: `quantity=${qty}`,
+            })
+            .then(r => r.json())
+            .then(data => {
+                if (data.success) {
+                    showToast(data.message, 'success');
+                    updateCartBadge(data.cart_count);
+                    btn.innerHTML = '<i class="bi bi-check-lg me-1"></i> Added!';
+                    setTimeout(() => {
+                        btn.innerHTML = originalHTML;
+                        btn.disabled = false;
+                    }, 2000);
+                } else {
+                    showToast('Something went wrong.', 'error');
+                    btn.innerHTML = originalHTML;
+                    btn.disabled = false;
+                }
+            })
+            .catch(() => {
+                showToast('Network error. Please try again.', 'error');
+                btn.innerHTML = originalHTML;
+                btn.disabled = false;
+            });
+        });
+
+        // Wishlist toggle - global handler
+        document.addEventListener('click', function(e) {
+            const btn = e.target.closest('[data-toggle-wishlist]');
+            if (!btn) return;
+            e.preventDefault();
+
+            const productId = btn.dataset.toggleWishlist;
+            const url = `/wishlist/toggle/${productId}/`;
+
+            fetch(url, {
+                method: 'POST',
+                headers: { 'X-CSRFToken': getCSRFToken() },
+            })
+            .then(r => r.json())
+            .then(data => {
+                if (data.success) {
+                    showToast(data.message, 'success');
+                    // Update button state
+                    const icon = btn.querySelector('i');
+                    if (data.in_wishlist) {
+                        btn.classList.add('active');
+                        if (icon) icon.className = 'bi bi-heart-fill';
+                    } else {
+                        btn.classList.remove('active');
+                        if (icon) icon.className = 'bi bi-heart';
+                    }
+                    // Update wishlist count in navbar
+                    const wishlistBtns = document.querySelectorAll('[href*="wishlist"] .nav-badge');
+                    wishlistBtns.forEach(b => b.textContent = data.wishlist_count);
+                }
+            })
+            .catch(() => showToast('Network error.', 'error'));
+        });
+    </script>
+
+    <!-- Shop Dropdown: click toggle for mobile -->
+    <script>
+      const shopLink = document.getElementById('shopDropdown');
+      const shopMenu = document.getElementById('shopDropdownMenu');
+      if (shopLink && shopMenu) {
+        shopLink.addEventListener('click', function(e) {
+          // On mobile (navbar collapsed), toggle menu instead of navigating
+          if (window.innerWidth < 992) {
+            e.preventDefault();
+            shopMenu.classList.toggle('show');
+          }
+        });
+        // Close when clicking outside
+        document.addEventListener('click', function(e) {
+          if (!shopLink.contains(e.target) && !shopMenu.contains(e.target)) {
+            shopMenu.classList.remove('show');
+          }
+        });
+      }
+    </script>
+
+    {% block extra_js %}{% endblock %}
+</body>
+</html>
