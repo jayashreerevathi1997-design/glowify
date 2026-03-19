@@ -13,7 +13,7 @@ SECRET_KEY = 'django-insecure-glowify-secret-key-change-in-production-2024'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['*', '.pythonanywhere.com']
 
 # Application definition
 INSTALLED_APPS = [
@@ -94,6 +94,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Session settings
 SESSION_ENGINE = 'django.contrib.sessions.backends.db'
 SESSION_COOKIE_AGE = 86400 * 30  # 30 days
+
+# CSRF trusted origins for PythonAnywhere
+CSRF_TRUSTED_ORIGINS = ['https://*.pythonanywhere.com']
 
 # Razorpay Settings (Test Mode)
 RAZORPAY_KEY_ID = 'rzp_test_ST1w5W7DlqVXnV'
